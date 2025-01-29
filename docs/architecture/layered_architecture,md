@@ -103,6 +103,16 @@ domain/
        infrastructure/
            stockRepositoryImpl.java
            stockJpaRepository.java - (JPA interface)
+    user/
+       (Model)
+           user.java
+       (Service)
+           userService.java
+       (Repositories)
+           userRepository.java - interface
+       infrastructure/
+           userRepositoryImpl.java
+           userJpaRepository.java - (JPA interface)
     external/
         statics/
         (Model)

@@ -22,6 +22,8 @@ e-커머스 상품 주문 서비스를 구현하는 프로젝트입니다. 아�
 
 ERD, flow_chart, sequence_diagram 은 docs 폴더 내에 존재.
 
+- swagger-ui 실행 주소 : 
+`http://localhost:8080/swagger-ui/index.html`
 
 #### Running Docker Containers
 
