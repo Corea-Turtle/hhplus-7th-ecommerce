@@ -22,6 +22,7 @@ e-커머스 상품 주문 서비스를 구현하는 프로젝트입니다. 아�
 
 ERD, flow_chart, sequence_diagram 은 docs 폴더 내에 존재.
 
+
 #### Running Docker Containers
 
 `local` profile 로 실행하기 위하여 인프라가 설정되어 있는 Docker 컨테이너를 실행해주셔야 합니다.
