@@ -1,0 +1,47 @@
+sequenceDiagram
+    actor 사용자
+    participant API as 잔액 충전 API
+    participant User as User
+    participant Facade as UserBalanceFacade
+    participant Balance as Balance
+    participant DB as 데이터베이스(User)
+
+activate 사용자
+
+    activate 사용자
+    사용자->>+API: 충전 요청(사용자 식별자, 충전 금액)
+    activate API
+    API->>+User: 인증 요청
+    API-->>-User: 인가
+    API->>Facade: 충전 요청 위임(식별자, 금액)
+    activate Facade
+    Facade->>Facade: 충전 금액 검증(0보다 큰가?)
+    Facade-->>Facade: 검증 통과
+    Facade->>Facade: 사용자 계정 상태 확인
+    Facade-->>Facade: 계정 활성 상태 확인 완료
+    Facade->>+Balance: 충전 요청 수행(식별자, 금액)
+    activate Balance
+    Balance->>+DB: 사용자 정보 조회(식별자)
+    DB-->>-Balance: 사용자 정보 반환(현재 금액)
+    alt 사용자 정보 없음
+        Balance-->>Facade: 충전 실패(사용자 정보 없음)
+        Facade-->>API: 충전 실패(사용자 정보 없음)
+        API-->>사용자: 충전 실패(사용자 정보 없음)
+        deactivate Balance
+        deactivate Facade
+        deactivate API
+    else 정상 처리
+        activate API
+        activate Facade
+        activate Balance
+        Balance->>+DB: 잔액 업데이트(충전 금액 추가)
+        DB-->>-Balance: 업데이트 완료
+        Balance-->>Balance:충전 성공(잔액: $100, 트랜잭션 ID: #12345)
+        Balance-->>Facade: 충전 성공(잔액: $100)
+        deactivate Balance
+        Facade-->>API: 충전 성공(잔액: $100)
+        deactivate Facade
+        API-->>사용자: 충전 성공(잔액: $100)
+        deactivate API
+    end
+    deactivate 사용자

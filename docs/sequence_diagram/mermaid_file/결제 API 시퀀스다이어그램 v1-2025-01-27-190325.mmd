@@ -1,0 +1,45 @@
+sequenceDiagram
+    actor Customer as 사용자
+    participant API as PaymentAPI
+    participant Facade as PaymentFacade
+    participant User as UserBalance
+    participant Order as ProductOrder
+    participant DB as Database
+    participant DataPlatform as External Data Platform (Mock API)
+
+    %% 결제 시작
+    activate Customer
+    Customer->>+API: 결제 요청 (UserId, 주문 ID)
+    API->>+Facade: 결제 처리 요청 (UserId, 주문 ID)
+    activate Facade
+
+    %% 잔액 확인 및 차감
+    Facade->>+User: 사용자 잔액 확인 요청 (UserId)
+    User->>+DB: 사용자 잔액 조회
+    DB-->>-User: 사용자 잔액 반환 (현재 잔액: $100)
+    User-->>Facade: 잔액 확인 완료
+
+    alt 잔액 부족
+        Facade->>Facade: 잔액 부족 Exception()
+        deactivate Facade
+    else 잔액 충분
+        Facade->>+User: 잔액 차감 요청 (차감 금액: $50)
+        User->>+DB: 사용자 잔액 업데이트
+        DB-->>-User: 잔액 차감 완료
+        User-->>-Facade: 잔액 차감 완료
+
+        %% 주문 상태 업데이트
+        Facade->>+Order: 주문 상태 업데이트 (주문 ID, 상태: 결제 완료)
+        Order->>+DB: 주문 상태 업데이트
+        DB-->>-Order: 주문 상태 업데이트 완료
+        Order-->>-Facade: 주문 상태 업데이트 완료
+
+        %% 데이터 플랫폼 전송
+        Facade->>+DataPlatform: 결제 성공 정보 전송 (주문 ID, UserId, 결제 금액)
+        DataPlatform-->>-Facade: 데이터 전송 성공
+
+        Facade-->>-API: 결제 성공 (잔액 차감 완료, 주문 ID)
+        API-->>-Customer: 결제 성공 (주문 ID, 잔액 차감 완료)
+    end
+
+    deactivate Customer

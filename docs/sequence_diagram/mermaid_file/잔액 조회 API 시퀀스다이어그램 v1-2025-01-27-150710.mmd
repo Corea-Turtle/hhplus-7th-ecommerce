@@ -1,0 +1,20 @@
+sequenceDiagram
+    actor 사용자
+    participant API as User API
+    participant User as User
+    participant DB as 데이터베이스(User 정보)
+activate 사용자
+    사용자->>+API: 잔액 조회 요청(UserId)
+
+    alt 사용자 정보 없음
+        API->>사용자: 사용자 정보 없음(잘못된 UserId)
+    else DB 연결 실패
+        API->>사용자: DB 연결 실패(서비스 이용 불가)
+    else 정상 처리
+        API->>+User: 사용자 잔액 조회(UserId)
+        User->>+DB: 사용자 정보 조회(UserId)
+        DB-->>-User: 사용자 정보 반환(Balance)
+        User-->>-API: 사용자 정보 반환(Balance)
+        API-->>-사용자: 사용자 정보 반환(Balance)
+    end
+deactivate 사용자

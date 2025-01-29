@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor Customer as 사용자 
+    participant API as UserAPI
+    participant Facade as CouponFacade
+    participant Coupon as Coupon
+    participant DB as Database
+
+    %% 보유 쿠폰 조회
+    activate Customer
+    Customer->>+API: 보유 쿠폰 목록 조회 요청(UserId)
+    API->>+Facade: 보유 쿠폰 조회 요청(UserId)
+    activate Facade
+    Facade->>+Coupon: 보유 쿠폰 목록 조회(UserId)
+    activate Coupon
+    Coupon->>+DB: 보유 쿠폰 목록 조회(UserId)
+    
+    alt DB 연결 실패
+
+    else 사용자 정보 없음
+
+    else 보유 쿠폰 없음
+
+    else 보유 쿠폰 있음
+        DB-->>-Coupon: 보유 쿠폰 목록 반환
+        Coupon-->>-Facade: 보유 쿠폰 목록 반환
+        Facade-->>-API: 보유 쿠폰 목록 반환
+        API-->>-Customer: 보유 쿠폰 목록 반환
+    end
+
+

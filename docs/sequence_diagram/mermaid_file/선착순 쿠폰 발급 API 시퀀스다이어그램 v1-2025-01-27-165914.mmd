@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor Customer as 사용자 
+    participant API as LimitedCouponAPI
+    participant Facade as CouponFacade
+
+    participant Coupon as Coupon
+    participant DB as Database
+
+
+activate Customer
+    Customer->>+API: 쿠폰 발급 요청(UserId)
+    API->>+Facade: 쿠폰 발급 처리 요청(UserId)
+    activate Facade
+    Facade->>+Coupon: 선착순 쿠폰 발급(UserId)
+    activate Coupon
+    Coupon->>+DB: 쿠폰 발급 가능 여부 확인(UserId)
+    DB-->>-Coupon: 발급 가능 여부 (True/False)
+    
+    alt 쿠폰 발급 가능
+        Coupon->>+DB: 쿠폰 발급(UserId)
+    else 쿠폰 발급 불가
+        Coupon-->>-Facade: 쿠폰 발급 불가
+    end
+    DB-->>-Coupon: 쿠폰 발급 완료
+    Coupon-->>-Facade: 쿠폰 발급 완료
+    Facade-->>-API: 쿠폰 발급 성공
+    API-->>-Customer: 쿠폰 발급 성공
+
+    deactivate Facade
+deactivate Customer
