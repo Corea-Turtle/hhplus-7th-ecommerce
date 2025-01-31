@@ -12,7 +12,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("balance") // group 설정 API들을 그룹화
-                .pathsToMatch("/v1/balance/**") // API endpoint 경로 - 밑에 .addOpenApiCustomizer 추가로 테그 등 추가 가능
+                .pathsToMatch("/balance/**") // API endpoint 경로 - 밑에 .addOpenApiCustomizer 추가로 테그 등 추가 가능
                 .build();
     }
 
@@ -21,7 +21,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("coupon")
-                .pathsToMatch("/v1/coupon/**")
+                .pathsToMatch("/coupon/**")
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("payment")
-                .pathsToMatch("/v1/payment/**")
+                .pathsToMatch("/payment/**")
                 .build();
     }
 
@@ -39,7 +39,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("product")
-                .pathsToMatch("/v1/product/**")
+                .pathsToMatch("/product/**")
                 .build();
     }
 
@@ -48,7 +48,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("purchase_order")
-                .pathsToMatch("/v1/purchase_order/**")
+                .pathsToMatch("/purchase_order/**")
                 .build();
     }
 
@@ -57,7 +57,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("stock")
-                .pathsToMatch("/v1/stock/**")
+                .pathsToMatch("/stock/**")
                 .build();
     }
 
@@ -66,7 +66,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("statics")
-                .pathsToMatch("/v1/statics/**")
+                .pathsToMatch("/statics/**")
                 .build();
     }
 
@@ -75,7 +75,7 @@ public class SwaggerConfig {
         return GroupedOpenApi
                 .builder()
                 .group("user")
-                .pathsToMatch("/v1/user/**")
+                .pathsToMatch("/user/**")
                 .build();
     }
 }
