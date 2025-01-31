@@ -35,7 +35,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        return new UserUpdateBalanceResponse(resultBalance);
+        return new UserUpdateBalanceResponse(user.getBalance());
     }
 
 }
