@@ -15,15 +15,16 @@ e-커머스 상품 주문 서비스를 구현하는 프로젝트입니다. 아�
 
 ### Prerequisites
 
-- `.github` 폴더 내 pull_request_template.md 파일로 커밋 template 작성
-  
-명렁어
-`git config commit.template <파일 주소 절대경로>`
+- `.github` 폴더 내 pull_request_template.md 파일로 커밋 template 작성  명렁어 : `git config commit.template <파일 주소 절대경로>`
 
-ERD, flow_chart, sequence_diagram 은 docs 폴더 내에 존재.
+- ERD, flow_chart, sequence_diagram 은 docs 폴더 내에 존재.
 
-- swagger-ui 실행 주소 : 
-`http://localhost:8080/swagger-ui/index.html`
+- lombok 설치 필요
+
+- swagger-ui 실행 주소 :
+  `http://localhost:8080/swagger-ui/index.html`
+- swagger-ui config 파일 위치 : config/swagger
+
 
 #### Running Docker Containers
 
