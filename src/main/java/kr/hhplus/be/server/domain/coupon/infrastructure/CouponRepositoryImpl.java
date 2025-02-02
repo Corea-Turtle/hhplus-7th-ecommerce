@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class CouponRepositoryImpl implements CouponRepository {
 
-    private final CouponJpaRepository couponJpaRepository;
+    private CouponJpaRepository couponJpaRepository;
 
     @Override
     public Optional<Coupon> findById(Long id) {
