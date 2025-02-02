@@ -4,18 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class UserUpdateBalanceResponse {
     long resultBalance;
-
-    public long getResultBalance() {
-        return resultBalance;
-    }
-
-    public void setResultBalance(long resultBalance) {
-        this.resultBalance = resultBalance;
-    }
-
-    public UserUpdateBalanceResponse(long resultBalance) {
-        this.resultBalance = resultBalance;
-    }
 }

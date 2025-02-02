@@ -31,7 +31,7 @@ public class UserController {
 
 /*    @GetMapping("get_my_coupons")
     public ResponseEntity<UserMyCouponListResponse> getMyCoupons(@RequestBody UserMyCouponListRequest request){
-        UserMyCouponListResponse response = userService.getMyCoupons(request);
+        UserMyCouponListResponse response =
         return ResponseEntity.ok()
                 .body(response);
     }*/

@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name="user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,19 +32,7 @@ public class User {
         this.balance = balance;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getBalance() {
-        return balance;
-    }
-
-    //해당 유저의 쿠폰 관리
+//해당 유저의 쿠폰 관리
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    List<userCoupon> userCoupons;
 
