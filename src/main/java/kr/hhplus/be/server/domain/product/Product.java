@@ -19,4 +19,7 @@ public class Product {
     private String name;
 
     private int price;
+
+    @Transient
+    private int orderAmount;
 }

@@ -1,24 +1,22 @@
 package kr.hhplus.be.server.interfaces.api.coupon.controller;
 
+import kr.hhplus.be.server.application.coupon.LimitedCouponFacade;
 import kr.hhplus.be.server.domain.coupon.CouponService;
 import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponCreateRequest;
 import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponLimitedIssueRequest;
 import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponUpdateRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/coupon")
 public class CouponController {
 
     private final CouponService couponService;
 
-    public CouponController(CouponService couponService) {
-        this.couponService = couponService;
-    }
+    private final LimitedCouponFacade limitedCouponFacade;
 
     //쿠폰 생성
     @PostMapping("/new")
@@ -32,9 +30,12 @@ public class CouponController {
         couponService.updateCoupon(request);
     }
 
-/*    @PostMapping("/issue")
-    public void issuelimitedCoupon(@RequestBody CouponLimitedIssueRequest request){
-        limitedCouponIssueUseCase.issuelimitedCoupon(request);
-    }*/
+    //선착순 쿠폰 발급
+    @PostMapping("/issue_limited_coupon")
+    public void issuelimitedCoupon(@RequestBody CouponLimitedIssueRequest request) {
+        limitedCouponFacade.issuelimitedCoupon(request);
+    }
+
+
 
 }

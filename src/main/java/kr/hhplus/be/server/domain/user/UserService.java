@@ -17,6 +17,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    //유저가 존재하는지 확인
+    public User getExistUser(Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new IllegalArgumentException("유저가 존재하지 않습니다."));
+        return user;
+    }
+
     //유저 포인트 조회
     public UserMyBalanceResponse getCurrentUserBalance(UserMyBalanceRequest request){
         User user = userRepository.findById(request.getId())
@@ -37,5 +44,6 @@ public class UserService {
 
         return new UserUpdateBalanceResponse(resultBalance);
     }
+
 
 }

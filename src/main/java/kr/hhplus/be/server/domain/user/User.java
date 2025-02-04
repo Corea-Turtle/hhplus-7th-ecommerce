@@ -32,7 +32,7 @@ public class User {
         this.balance = balance;
     }
 
-//해당 유저의 쿠폰 관리
+//해당 유저의 쿠폰 관리 - 쓸필요 없는듯
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    List<userCoupon> userCoupons;
 
@@ -44,7 +44,7 @@ public class User {
         this.balance = updatedBalance;
     }
 
-    //보유 쿠폰 추가
+    //보유 쿠폰 추가 - 쓸필요 없는듯
 //    public void addUserCoupon(User user, Coupon coupon){
 //        userCoupons.add(new UserCoupon(user, coupon));
 //    }

@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CouponLimitedIssueRequest {
 
-    private User user;
-    private Coupon coupon;
+    private Long userId;
+    private Long couponId;
 
 }

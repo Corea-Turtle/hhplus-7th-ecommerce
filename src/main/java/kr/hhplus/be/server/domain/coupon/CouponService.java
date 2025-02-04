@@ -14,6 +14,12 @@ public class CouponService {
 
     private CouponRepositoryImpl couponRepository;
 
+    public Coupon getExistCoupon(Long couponId){
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(()->new IllegalArgumentException("쿠폰이 존재하지 않습니다."));
+        return coupon;
+    }
+
     public void createCoupon(CouponCreateRequest request){
         Coupon coupon = new Coupon(request.getType(), request.getValueOfType(), request.getRemainQuantity(), request.getExpiredDate(), request.getCreateDate());
 
