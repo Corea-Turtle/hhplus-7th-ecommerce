@@ -20,4 +20,8 @@ public class Stock {
     private Long productId;
 
     private int remainQuantity;
+
+    public void subtractRemainQuantity(int subtractAmount){
+        this.remainQuantity -= subtractAmount;
+    }
 }

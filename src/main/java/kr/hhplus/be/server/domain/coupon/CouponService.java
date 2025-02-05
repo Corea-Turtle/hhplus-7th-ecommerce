@@ -49,11 +49,4 @@ public class CouponService {
         }
         couponRepository.save(coupon);
     }
-
-    //쿠폰 조회
-    public Coupon getCouponById(Long couponId){
-        Coupon coupon = couponRepository.findById(couponId)
-                .orElseThrow(()->new IllegalArgumentException("해당하는 쿠폰이 없습니다."));
-        return coupon;
-    }
 }

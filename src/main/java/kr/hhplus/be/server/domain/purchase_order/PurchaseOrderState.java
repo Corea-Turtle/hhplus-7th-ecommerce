@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum PurchaseOrderState {
 
-    PENDING("주문대기"),
-    COMPLETE("주문완료"),
-    CANCEL("주문취소");
+    ORDER_PENDING("주문생성"),
+    ORDER_CANCEL("주문취소"),
+    PAYMENT_COMPLETE("결제완료"),
+    PAYMENT_CANCEL("결제취소");
+
 
     private final String text;
 }

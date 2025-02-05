@@ -26,8 +26,13 @@ public class StockService {
         return stock.getRemainQuantity();
     }
 
-//    public Stock decreaseStockByProductId(Long productId){
-//
-//    }
+
+    public Stock decreaseStockByProductId(Long productId, int decreaseAmount){
+        Stock stock = stockRepository.findByProductId(productId)
+                .orElseThrow(()->new IllegalArgumentException("상품이 없습니다."));
+        stock.subtractRemainQuantity(decreaseAmount);
+
+        return stock;
+    }
 
 }

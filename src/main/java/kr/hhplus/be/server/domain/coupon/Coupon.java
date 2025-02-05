@@ -24,7 +24,7 @@ public class Coupon {
     @Enumerated(EnumType.STRING)
     private CouponType type;
 
-    private double valueOfType; //type별 들어가는 값 (ex 정률 할인시 10%할인이면 10, 정액할인시 - 금액 1000원 할인)
+    private int valueOfType; //type별 들어가는 값 (ex 정률 할인시 10%할인이면 10, 정액할인시 - 금액 1000원 할인)
 
     private int remainQuantity; //발급 수량
 
@@ -35,7 +35,7 @@ public class Coupon {
 
     private LocalDate  createDate; // 발앵일
 
-    public Coupon(Long id, CouponType type, double valueOfType, int remainQuantity, LocalDate expiredDate, LocalDate createDate) {
+    public Coupon(Long id, CouponType type, int valueOfType, int remainQuantity, LocalDate expiredDate, LocalDate createDate) {
         this.id = id;
         this.type = type;
         this.valueOfType = valueOfType;
@@ -45,7 +45,7 @@ public class Coupon {
         this.createDate = createDate;
     }
 
-    public Coupon(CouponType type, double valueOfType, int remainQuantity, LocalDate expiredDate, LocalDate createDate) {
+    public Coupon(CouponType type, int valueOfType, int remainQuantity, LocalDate expiredDate, LocalDate createDate) {
         this.type = type;
         this.valueOfType = valueOfType;
         this.remainQuantity = remainQuantity;
