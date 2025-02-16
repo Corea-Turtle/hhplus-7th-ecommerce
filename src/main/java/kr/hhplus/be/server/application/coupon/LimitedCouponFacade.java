@@ -7,12 +7,13 @@ import kr.hhplus.be.server.domain.user.UserService;
 import kr.hhplus.be.server.domain.user_coupon.UserCouponService;
 import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponLimitedIssueRequest;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponIssueRequest;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Component
 public class LimitedCouponFacade {
     //쿠폰 - 선착순 쿠폰 발급
@@ -34,13 +35,8 @@ public class LimitedCouponFacade {
         //쿠폰이 존재하는지
         Coupon coupon = couponService.getExistCoupon(request.getCouponId());
 
-        //쿠폰이 있으면 만료된 쿠폰인지 확인
-        if(coupon.getExpiredDate().isBefore(LocalDate.now())){
-            throw new IllegalArgumentException("만료된 쿠폰입니다.");
-        }
-
         UserCouponIssueRequest userCouponIssueRequest =
-                new UserCouponIssueRequest(request.getUserId(), request.getCouponId());
+                new UserCouponIssueRequest(user.getId(), coupon.getId());
 
         //여기에 락을 걸어야되나?
         //쿠폰 발급 서비스 호출
