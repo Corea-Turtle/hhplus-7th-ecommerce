@@ -1,6 +1,7 @@
-package kr.hhplus.be.server.domain.coupon;
+package kr.hhplus.be.server.domain.unit_test.coupon;
 
-import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponUpdateRequest;
+import kr.hhplus.be.server.domain.coupon.Coupon;
+import kr.hhplus.be.server.domain.coupon.CouponType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

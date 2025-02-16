@@ -1,10 +1,12 @@
-package kr.hhplus.be.server.domain.coupon;
+package kr.hhplus.be.server.domain.unit_test.coupon;
 
-import kr.hhplus.be.server.domain.coupon.infrastructure.CouponRepositoryImpl;
+import kr.hhplus.be.server.domain.coupon.Coupon;
+import kr.hhplus.be.server.domain.coupon.CouponService;
+import kr.hhplus.be.server.domain.coupon.CouponType;
+import kr.hhplus.be.server.infrastructure.coupon.CouponRepositoryImpl;
 import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponCreateRequest;
 import kr.hhplus.be.server.interfaces.api.coupon.dto.request.CouponUpdateRequest;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.C;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -103,16 +104,13 @@ class CouponServiceTest {
     @Test
     void getCouponByIdFail() {
         //given
-        LocalDate createDate = LocalDate.of(2024, 1, 25);
-        LocalDate expiredDate = LocalDate.of(2024, 12, 31);
-        Coupon coupon = new Coupon(1L, CouponType.RATE, 10, 30, expiredDate, createDate);
-
-
         //when
+        Mockito.when(couponRepository.findById(1L)).thenReturn(Optional.empty());
+
         //then
-        Assertions.assertThatThrownBy(()-> couponService.getCouponById(2L))
+        Assertions.assertThatThrownBy(()-> couponService.getExistCoupon(1L))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("해당하는 쿠폰이 없습니다.");
+                .hasMessage("쿠폰이 존재하지 않습니다.");
     }
 
     @DisplayName("[성공]쿠폰아이디를 입력받아 해당 쿠폰을 조회하여 반환한다.")
@@ -126,7 +124,7 @@ class CouponServiceTest {
         Mockito.when(couponRepository.findById(coupon.getId())).thenReturn(Optional.of(coupon));
 
         //when
-        Coupon couponFound = couponService.getCouponById(coupon.getId());
+        Coupon couponFound = couponService.getExistCoupon(coupon.getId());
 
         //then
         Assertions.assertThat(couponFound.getId()).isEqualTo(coupon.getId());
