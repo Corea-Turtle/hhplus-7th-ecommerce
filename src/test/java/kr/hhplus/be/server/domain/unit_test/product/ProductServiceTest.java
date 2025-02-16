@@ -1,7 +1,8 @@
-package kr.hhplus.be.server.domain.product;
+package kr.hhplus.be.server.domain.unit_test.product;
 
-import kr.hhplus.be.server.domain.product.infrastructure.ProductRepositoryImpl;
-import kr.hhplus.be.server.domain.user.User;
+import kr.hhplus.be.server.domain.product.Product;
+import kr.hhplus.be.server.domain.product.ProductService;
+import kr.hhplus.be.server.infrastructure.product.ProductRepositoryImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {

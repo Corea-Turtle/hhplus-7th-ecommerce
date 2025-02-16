@@ -1,12 +1,10 @@
-package kr.hhplus.be.server.domain.user;
+package kr.hhplus.be.server.domain.unit_test.user;
 
 
+import kr.hhplus.be.server.domain.user.User;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserTest {

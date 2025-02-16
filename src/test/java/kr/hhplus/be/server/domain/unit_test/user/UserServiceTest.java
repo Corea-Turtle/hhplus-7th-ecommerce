@@ -1,12 +1,13 @@
-package kr.hhplus.be.server.domain.user;
+package kr.hhplus.be.server.domain.unit_test.user;
 
-import kr.hhplus.be.server.domain.user.infrasturcture.UserRepositoryImpl;
+import kr.hhplus.be.server.domain.user.User;
+import kr.hhplus.be.server.domain.user.UserService;
+import kr.hhplus.be.server.infrastructure.user.UserRepositoryImpl;
 import kr.hhplus.be.server.interfaces.api.user.dto.request.UserMyBalanceRequest;
 import kr.hhplus.be.server.interfaces.api.user.dto.request.UserUpdateBalanceRequest;
 import kr.hhplus.be.server.interfaces.api.user.dto.response.UserMyBalanceResponse;
 import kr.hhplus.be.server.interfaces.api.user.dto.response.UserUpdateBalanceResponse;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +17,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -34,12 +33,11 @@ class UserServiceTest {
     void getUserBalanceNoUser() {
         //given
         User user = new User( "김유저", 10);
-
-        UserMyBalanceResponse response = new UserMyBalanceResponse(user.getId(),user.getBalance());
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.empty()); // 존재하지 않는 경우 추가
 
         //when
         //then
-        Assertions.assertThatThrownBy(()->userRepository.findById(0L)
+        Assertions.assertThatThrownBy(()->userRepository.findById(1L)
                         .orElseThrow(()->new IllegalArgumentException("유저가 존재하지 않습니다.")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("유저가 존재하지 않습니다.");

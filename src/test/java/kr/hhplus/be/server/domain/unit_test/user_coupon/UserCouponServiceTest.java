@@ -1,23 +1,15 @@
-package kr.hhplus.be.server.domain.user_coupon;
+package kr.hhplus.be.server.domain.unit_test.user_coupon;
 
-import kr.hhplus.be.server.domain.user_coupon.infrastructure.UserCouponRepositoryImpl;
-import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponIssueRequest;
-import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponListRequest;
+import kr.hhplus.be.server.domain.user_coupon.UserCoupon;
+import kr.hhplus.be.server.domain.user_coupon.UserCouponState;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.response.UserCouponListResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserCouponServiceTest {

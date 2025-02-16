@@ -1,8 +1,8 @@
-package kr.hhplus.be.server.domain.stock;
+package kr.hhplus.be.server.domain.unit_test.stock;
 
-import kr.hhplus.be.server.domain.product.ProductService;
-import kr.hhplus.be.server.domain.product.infrastructure.ProductRepositoryImpl;
-import kr.hhplus.be.server.domain.stock.infrastructure.StockRepositoryImpl;
+import kr.hhplus.be.server.domain.stock.Stock;
+import kr.hhplus.be.server.domain.stock.StockService;
+import kr.hhplus.be.server.infrastructure.stock.StockRepositoryImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class StockServiceTest {
