@@ -1,21 +1,18 @@
 package kr.hhplus.be.server.domain.user;
 
-import kr.hhplus.be.server.domain.user.infrasturcture.UserRepositoryImpl;
+import kr.hhplus.be.server.infrastructure.user.UserRepositoryImpl;
 import kr.hhplus.be.server.interfaces.api.user.dto.request.UserMyBalanceRequest;
 import kr.hhplus.be.server.interfaces.api.user.dto.request.UserUpdateBalanceRequest;
 import kr.hhplus.be.server.interfaces.api.user.dto.response.UserMyBalanceResponse;
 import kr.hhplus.be.server.interfaces.api.user.dto.response.UserUpdateBalanceResponse;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepositoryImpl userRepository;
-
-    public UserService(UserRepositoryImpl userRepository) {
-        this.userRepository = userRepository;
-    }
 
     //유저가 존재하는지 확인
     public User getExistUser(Long userId){
