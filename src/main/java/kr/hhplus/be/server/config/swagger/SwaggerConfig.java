@@ -52,14 +52,14 @@ public class SwaggerConfig {
                 .build();
     }
 
-    @Bean
-    public GroupedOpenApi stockGroupedOpenApi(){
-        return GroupedOpenApi
-                .builder()
-                .group("stock")
-                .pathsToMatch("/stock/**")
-                .build();
-    }
+//    @Bean
+//    public GroupedOpenApi stockGroupedOpenApi(){
+//        return GroupedOpenApi
+//                .builder()
+//                .group("stock")
+//                .pathsToMatch("/stock/**")
+//                .build();
+//    }
 
     @Bean
     public GroupedOpenApi staticsGroupedOpenApi(){
