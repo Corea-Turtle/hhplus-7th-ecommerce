@@ -1,0 +1,126 @@
+- 한 도메인에 request/respnse 개수가 많아지면 폴더 추가
+
+api/
+    balance/
+        controller/
+            balanceController.java
+        dto/
+            balanceChargeRequest.java
+            balanceChargeResponse.java
+    coupon/
+        controller/
+            couponController.java
+        dto/
+            couponIssueLimitedRequest.java
+            couponIssueLimitedResponse.java
+        userCase/
+            couponIssuerUseCase.java
+    payment/
+        controller/
+            paymentController.java
+        dto/
+            paymentRequest.java
+            paymentResponse.java
+    product/
+        controller/
+            productController.java
+        dto/
+            request/
+                productDetailRequest.java
+            response/
+                productListResponse.java
+                productDetailResponse.java
+    purchase_order/
+        controller/
+            purchaseOrderController.java
+        dto/
+            purchaseOrderRequest.java
+            purchaseOrderResponse.java
+    stock/
+        controller/
+            stockController.java
+        dto/
+            stockRemainRequest.java
+            stockRemainResponse.java
+domain/
+    balance/
+       (Model)
+           balance.java
+       (Service)
+           balanceService.java
+       (Repositories)
+           balanceRepository.java - interface
+       infrastructure/
+           balanceRepositoryImpl.java
+           balanceJpaRepository.java - (JPA interface)
+    coupon/
+       (Model)
+           coupon.java
+       (Service)
+           couponService.java
+       (Repositories)
+           couponRepository.java - interface
+       infrastructure/
+           couponRepositoryImpl.java
+           couponJpaRepository.java - (JPA interface)
+    payment/
+       (Model)
+           payment.java
+       (Service)
+           paymentService.java
+       (Repositories)
+           paymentRepository.java - interface
+       infrastructure/
+           paymentRepositoryImpl.java
+           paymentJpaRepository.java - (JPA interface)
+    product/
+       (Model)
+           product.java
+       (Service)
+           productService.java
+       (Repositories)
+           productRepository.java - interface
+       infrastructure/
+           productRepositoryImpl.java
+           productJpaRepository.java - (JPA interface)
+    purchase_order/
+       (Model)
+           purchaseOrder.java
+       (Service)
+           purchaseOrderService.java
+       (Repositories)
+           purchaseOrderRepository.java
+       infrastructure/
+           purchaseOrderRepositoryImpl.java
+           purchaseOrderJpaRepository.java
+    stock/
+       (Model)
+           stock.java
+       (Service)
+           stockService.java
+       (Repositories)
+           stockRepository.java - interface
+       infrastructure/
+           stockRepositoryImpl.java
+           stockJpaRepository.java - (JPA interface)
+    user/
+       (Model)
+           user.java
+       (Service)
+           userService.java
+       (Repositories)
+           userRepository.java - interface
+       infrastructure/
+           userRepositoryImpl.java
+           userJpaRepository.java - (JPA interface)
+    external/
+        statics/
+        (Model)
+            statics.java
+        (Service)
+            staticsService.java
+        (Repositories)
+            staticsRepository.java - interface
+        infrastructure/
+            staticsRepositoryImpl.java
+            staticsJpaRepository.java - (JPA interface)
