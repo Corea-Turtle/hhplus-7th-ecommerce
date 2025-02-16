@@ -16,12 +16,16 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
     private Long productId;
 
     private int remainQuantity;
 
     public void subtractRemainQuantity(int subtractAmount){
         this.remainQuantity -= subtractAmount;
+    }
+
+    public Stock(Long productId, int remainQuantity) {
+        this.productId = productId;
+        this.remainQuantity = remainQuantity;
     }
 }

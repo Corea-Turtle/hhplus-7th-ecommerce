@@ -20,6 +20,7 @@ public class UserCoupon {
     private Long userId;
     private Long couponId;
 
+    @Enumerated(EnumType.STRING)
     private UserCouponState state;
 
     @Column(nullable = true)
@@ -44,6 +45,27 @@ public class UserCoupon {
         this.state = UserCouponState.AVAILABLE;
         this.issuedTime = LocalDateTime.now();
     }
+    //통합테스트용 생성자
+    public UserCoupon(Long userId, Long couponId,UserCouponState state) {
+        this.userId = userId;
+        this.couponId = couponId;
+        this.state = state;
+        this.issuedTime = LocalDateTime.now();
+    }
+
+    public UserCoupon(Long userId, Long couponId, UserCouponState state, LocalDateTime issuedTime) {
+        this.userId = userId;
+        this.couponId = couponId;
+        this.state = state;
+        this.issuedTime = issuedTime;
+    }
+
+    public UserCoupon(Long userId, Long couponId, LocalDateTime issuedTime) {
+        this.userId = userId;
+        this.couponId = couponId;
+        this.state = UserCouponState.AVAILABLE;
+        this.issuedTime = issuedTime;
+    }
 
     public void updateStateToAvailable(){
         this.state = UserCouponState.AVAILABLE;
@@ -51,4 +73,8 @@ public class UserCoupon {
 
     public void updateStateToUsed(){
         this.state = UserCouponState.USED;
-    }}
+    }
+}
+
+
+    //테스트용

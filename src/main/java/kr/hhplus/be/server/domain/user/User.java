@@ -18,7 +18,6 @@ public class User {
 
     private String name;
 
-    @ColumnDefault("0")
     private long balance;
 
     public User(Long id, String name, long balance) {

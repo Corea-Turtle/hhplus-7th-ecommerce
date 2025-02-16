@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "product")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +21,28 @@ public class Product {
 
     @Transient
     private int orderAmount;
+
+    public Product(Long id, String name, int price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(Long id, String name, int price, int orderAmount) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.orderAmount = orderAmount;
+    }
+
+    public Product(String name, int price, int orderAmount) {
+        this.name = name;
+        this.price = price;
+        this.orderAmount = orderAmount;
+    }
+
+    public Product(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
 }
