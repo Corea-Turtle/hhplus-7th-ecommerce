@@ -1,8 +1,7 @@
-package kr.hhplus.be.server.domain.product.infrastructure;
+package kr.hhplus.be.server.infrastructure.product;
 
 import kr.hhplus.be.server.domain.product.Product;
 import kr.hhplus.be.server.domain.product.ProductRepository;
-import kr.hhplus.be.server.domain.stock.Stock;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +28,5 @@ public class ProductRepositoryImpl implements ProductRepository {
     public void save(Product product) {
         productJpaRepository.save(product);
     }
+
 }

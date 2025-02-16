@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.user_coupon.infrastructure;
+package kr.hhplus.be.server.infrastructure.user_coupon;
 
 import kr.hhplus.be.server.domain.user_coupon.UserCoupon;
 import org.springframework.data.jpa.repository.JpaRepository;

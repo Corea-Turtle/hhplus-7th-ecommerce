@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.stock.infrastructure;
+package kr.hhplus.be.server.infrastructure.stock;
 
 import kr.hhplus.be.server.domain.stock.Stock;
 import kr.hhplus.be.server.domain.stock.StockRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class StockRepositoryImpl implements StockRepository {
 
-    private StockJpaRepository stockJpaRepository;
+    private final StockJpaRepository stockJpaRepository;
 
 
     @Override

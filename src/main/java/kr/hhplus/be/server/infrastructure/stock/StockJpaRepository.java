@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.stock.infrastructure;
+package kr.hhplus.be.server.infrastructure.stock;
 
 import kr.hhplus.be.server.domain.stock.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;

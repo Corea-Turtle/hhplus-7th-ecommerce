@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.coupon.infrastructure;
+package kr.hhplus.be.server.infrastructure.coupon;
 
 import kr.hhplus.be.server.domain.coupon.Coupon;
 import kr.hhplus.be.server.domain.coupon.CouponRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class CouponRepositoryImpl implements CouponRepository {
 
-    private CouponJpaRepository couponJpaRepository;
+    private final CouponJpaRepository couponJpaRepository;
 
     @Override
     public Optional<Coupon> findById(Long id) {
