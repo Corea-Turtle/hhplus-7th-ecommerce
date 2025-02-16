@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.purchase_order.infrastructure;
+package kr.hhplus.be.server.infrastructure.purchase_order;
 
 import kr.hhplus.be.server.domain.purchase_order.PurchaseOrder;
 import org.springframework.data.jpa.repository.JpaRepository;

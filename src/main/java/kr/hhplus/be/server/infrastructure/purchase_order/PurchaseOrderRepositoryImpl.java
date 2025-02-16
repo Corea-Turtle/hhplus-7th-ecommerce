@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.purchase_order.infrastructure;
+package kr.hhplus.be.server.infrastructure.purchase_order;
 
 import kr.hhplus.be.server.domain.purchase_order.PurchaseOrder;
 import kr.hhplus.be.server.domain.purchase_order.PurchaseOrderRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class PurchaseOrderRepositoryImpl implements PurchaseOrderRepository {
 
-    private PurchaseOrderJpaRepository purchaseOrderJpaRepository;
+    private final PurchaseOrderJpaRepository purchaseOrderJpaRepository;
 
 
     @Override

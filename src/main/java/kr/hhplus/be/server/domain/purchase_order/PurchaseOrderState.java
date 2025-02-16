@@ -9,9 +9,7 @@ public enum PurchaseOrderState {
 
     ORDER_PENDING("주문생성"),
     ORDER_CANCEL("주문취소"),
-    PAYMENT_COMPLETE("결제완료"),
-    PAYMENT_CANCEL("결제취소");
-
+    PAYMENT_COMPLETE("결제완료");
 
     private final String text;
 }
