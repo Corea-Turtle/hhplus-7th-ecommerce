@@ -31,4 +31,14 @@ public class Payment {
     private LocalDateTime paymentCreateDateTime;
 
     private LocalDateTime paymentUpdateDateTime;
+
+    public Payment(Long purchaseOrderId, Long userId, PurchaseOrderState state, PaymentVendor vendor, long totalOrderPrice) {
+        this.purchaseOrderId = purchaseOrderId;
+        this.userId = userId;
+        this.state = state;
+        this.vendor = vendor;
+        this.totalOrderPrice = totalOrderPrice;
+        this.paymentCreateDateTime = LocalDateTime.now();
+        this.paymentUpdateDateTime = LocalDateTime.now();
+    }
 }
