@@ -1,6 +1,6 @@
 package kr.hhplus.be.server.domain.product;
 
-import kr.hhplus.be.server.domain.product.infrastructure.ProductRepositoryImpl;
+import kr.hhplus.be.server.infrastructure.product.ProductRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-    ProductRepositoryImpl productRepository;
+    private final ProductRepositoryImpl productRepository;
 
     //1. 상품 정보 ( ID, 이름, 가격, 잔여수량 ) 을 조회.
     //2. 조회시점의 상품별 잔여수량이 정확하면 좋습니다.

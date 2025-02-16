@@ -1,9 +1,10 @@
 package kr.hhplus.be.server.domain.user_coupon;
 
-import kr.hhplus.be.server.domain.user_coupon.infrastructure.UserCouponRepositoryImpl;
+import kr.hhplus.be.server.infrastructure.user_coupon.UserCouponRepositoryImpl;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponIssueRequest;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponListRequest;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponUpdateRequest;
+import kr.hhplus.be.server.interfaces.api.user_coupon.dto.response.UserCouponIssueResponse;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.response.UserCouponListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,22 @@ import java.util.List;
 @Service
 public class UserCouponService {
 
-    private UserCouponRepositoryImpl userCouponRepository;
+    private final UserCouponRepositoryImpl userCouponRepository;
 
     //유저-쿠폰 발급
-    public void issueCouponToUser(UserCouponIssueRequest request){
+    public UserCouponIssueResponse issueCouponToUser(UserCouponIssueRequest request){
         //UserId, CouponId의 존재 유뮤 확인은 Facade에서 하는게 맞는거 같음.
-        UserCoupon userCoupon = new UserCoupon(request.getUserId(), request.getCouponId());
+        UserCoupon userCoupon;
+
+        if(request.getState()!=null) {
+            if (request.getIssuedDate() == null) {
+                userCoupon = new UserCoupon(request.getUserId(), request.getCouponId(), request.getIssuedDate());
+            }else {
+                userCoupon = new UserCoupon(request.getUserId(), request.getCouponId(), request.getState());
+            }
+        }else {
+            userCoupon = new UserCoupon(request.getUserId(), request.getCouponId());
+        }
 
         //만들어진 사용자 쿠폰의 상태가 올바른지
         if(userCoupon.getState()!=UserCouponState.AVAILABLE){
@@ -31,6 +42,12 @@ public class UserCouponService {
         }
 
         userCouponRepository.save(userCoupon);
+
+        String code = "쿠폰 발급";
+
+        return new UserCouponIssueResponse(code);
+
+
     }
 
     //유저-쿠폰 사용(주문)시 state는 used로 변경, usedDate는 사용한 일시를 기록한다.
