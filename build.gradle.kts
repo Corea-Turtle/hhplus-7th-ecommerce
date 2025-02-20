@@ -35,6 +35,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
+	//kafka
+	implementation("org.apache.kafka:kafka_2.13:3.9.0") //카프카 기본
+	implementation("org.springframework.kafka:spring-kafka") //KafkaTemplate 용도
+	implementation("org.apache.kafka:kafka-clients:3.9.0") //producer, customer 만들기용
+
+
 	// Lombok
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
@@ -50,6 +56,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mysql")
+	testImplementation("org.testcontainers:kafka:1.20.4")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	//테스트 lombok
 	testCompileOnly("org.projectlombok:lombok")
