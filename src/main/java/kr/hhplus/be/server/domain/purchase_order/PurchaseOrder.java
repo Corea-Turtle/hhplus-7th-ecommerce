@@ -47,4 +47,8 @@ public class PurchaseOrder {
         this.state = state;
         this.totalPrice =  totalPrice;
     }
+
+    public void updatePurchaseOrder(PurchaseOrderState state){
+        this.state = state;
+    }
 }

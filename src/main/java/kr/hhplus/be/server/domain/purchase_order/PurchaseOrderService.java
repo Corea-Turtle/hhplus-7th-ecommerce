@@ -29,6 +29,13 @@ public class PurchaseOrderService {
     }
 
 
+
+    //주문 상태 변경
+    public void purchaseOrderUpdateRequest(PurchaseOrder purchaseOrder, PurchaseOrderState state){
+        purchaseOrder.updatePurchaseOrder(state);
+        purchaseOrderRepository.save(purchaseOrder);
+    }
+
     //주문 삭제(나중에)
 
 }

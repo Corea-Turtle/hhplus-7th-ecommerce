@@ -1,5 +1,6 @@
 package kr.hhplus.be.server.domain.user;
 
+import kr.hhplus.be.server.domain.purchase_order.PurchaseOrder;
 import kr.hhplus.be.server.infrastructure.user.UserRepositoryImpl;
 import kr.hhplus.be.server.interfaces.api.user.dto.request.UserMyBalanceRequest;
 import kr.hhplus.be.server.interfaces.api.user.dto.request.UserUpdateBalanceRequest;
@@ -42,5 +43,16 @@ public class UserService {
         return new UserUpdateBalanceResponse(resultBalance);
     }
 
+    //유저 포인트와 주문 상품 재고읭 포인트 비교
+    public void updateUserBalanceGreaterThanOrEqualToTotalOrderPrice(User user, PurchaseOrder purchaseOrder){
+        if(user.getBalance() >= purchaseOrder.getTotalPrice()){
+            //To do
+            //state 변경이 들어가야할까? no 로그만 기록하자
+            UserUpdateBalanceRequest updateBalanceRequest = new UserUpdateBalanceRequest(user.getId(),-purchaseOrder.getTotalPrice());
 
+            updateUserBalance(updateBalanceRequest);
+        }else{
+            throw new IllegalArgumentException("잔액이 부족합니다.");
+        }
+    }
 }

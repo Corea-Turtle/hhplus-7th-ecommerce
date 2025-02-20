@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.interfaces.kafka;
+package kr.hhplus.be.server.interfaces.kafka_connection_test;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

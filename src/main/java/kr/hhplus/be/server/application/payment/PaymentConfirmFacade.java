@@ -5,6 +5,7 @@ import kr.hhplus.be.server.domain.product.Product;
 import kr.hhplus.be.server.domain.purchase_order.PurchaseOrder;
 import kr.hhplus.be.server.domain.purchase_order.PurchaseOrderService;
 import kr.hhplus.be.server.domain.statics.StaticsService;
+import kr.hhplus.be.server.domain.stock.StockService;
 import kr.hhplus.be.server.domain.user.User;
 import kr.hhplus.be.server.domain.user.UserService;
 import kr.hhplus.be.server.interfaces.api.payment.dto.request.PaymentConfirmRequest;
@@ -29,6 +30,8 @@ public class PaymentConfirmFacade {
 
     private final StaticsService staticsService;
 
+    private final StockService stockService;
+
     public PaymentConfirmResponse confirmPayment(PaymentConfirmRequest request){
 
         //유저가 있는지 검증
@@ -37,28 +40,23 @@ public class PaymentConfirmFacade {
         //주문이 있는지 검증
         PurchaseOrder purchaseOrderExist = purchaseOrderService.getPurchaseOrderExist(request.getPurchaseOrderId());
 
-        //주문에 해당하는 유저의 잔액이 올바른지 확인
-        UserMyBalanceRequest balanceRequest = new UserMyBalanceRequest(request.getUserId());
-        UserMyBalanceResponse balanceResponse = userService.getCurrentUserBalance(balanceRequest);
+        //주문에 해당하는 유저의 잔액이 올바른지 확인 후 업데이트
+        userService.updateUserBalanceGreaterThanOrEqualToTotalOrderPrice(userExist,purchaseOrderExist);
 
-        if(balanceResponse.getBalance() >= purchaseOrderExist.getTotalPrice()){
-            //To do
-            //state 변경이 들어가야할까? no 로그만 기록하자
-            UserUpdateBalanceRequest updateBalanceRequest = new UserUpdateBalanceRequest(userExist.getId(),-purchaseOrderExist.getTotalPrice());
 
-            userService.updateUserBalance(updateBalanceRequest);
-
-        }else{
-            throw new IllegalArgumentException("잔액이 부족합니다.");
-        }
-
-        //TODO주문의 재고가 충분한지 검증
-
+//        //TODO 주문의 상품 재고가 충분한지 검증
+//        List<Product> products = purchaseOrderExist.getProducts();
+//        for(Product product : products){
+//            int stockRemain = stockService.getStockRemainQuantity(product.getId());
+//            if(stockRemain>0){
+//
+//            }
+//        }
 
         PaymentConfirmResponse response = new PaymentConfirmResponse(purchaseOrderExist.getId(), userExist.getId(), purchaseOrderExist.getState(), request.getVendor(), purchaseOrderExist.getTotalPrice());
 
-        //결제 정보 저장
-        paymentService.savePayment(response);
+        //결제 정보 저장(Transactional)
+        paymentService.pay(userExist, purchaseOrderExist, response);
 
         //판매 상위 상품에 데이터 추가
         for(Product product: purchaseOrderExist.getProducts()){
