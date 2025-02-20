@@ -28,7 +28,7 @@ class PaymentServiceTest {
 
         // Given
         PaymentConfirmResponse response = new PaymentConfirmResponse(
-                1L, 1L, PurchaseOrderState.PAYMENT_COMPLETE, PaymentVendor.TEST, 10000
+                1L, 1L, PurchaseOrderState.PAYMENT_INIT, PaymentVendor.TEST, 10000
         );
 
         // When
