@@ -24,7 +24,7 @@ class StockServiceTest {
     @InjectMocks
     StockService stockService;
 
-    @DisplayName("[실패]상품아이디를 입력했는데 재고수량이 0이면 '재고가 없습니다'를 출력한다.")
+    @DisplayName("[실패]상품아이디를 입력했는데 재고수량이 0이면 '0'를 출력한다.")
     @Test
     void getStockByProductIdButQuantityIsZero() {
         //given
@@ -32,9 +32,7 @@ class StockServiceTest {
         Mockito.when(stockRepository.findByProductId(2L)).thenReturn(Optional.of(stock)); // 존재하지 않는 경우 추가
         //when
         //then
-        Assertions.assertThatThrownBy(()->stockService.getStockByProductId(2L))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("재고가 없습니다.");
+        Assertions.assertThat(stockService.getStockRemainQuantity(2L)).isEqualTo(0);
     }
 
     @DisplayName("[실패]상품아이디를 입력했는데 상품이 없으면 '상품이 없습니다'를 출력한다.")

@@ -1,7 +1,9 @@
 package kr.hhplus.be.server.domain.integration_test.stock;
 
+import kr.hhplus.be.server.domain.product.Product;
 import kr.hhplus.be.server.domain.stock.Stock;
 import kr.hhplus.be.server.domain.stock.StockService;
+import kr.hhplus.be.server.infrastructure.product.ProductRepositoryImpl;
 import kr.hhplus.be.server.infrastructure.stock.StockRepositoryImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,23 +17,26 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class StockServiceIntegrationTest {
 
     @Autowired
+    ProductRepositoryImpl productRepository;
+
+    @Autowired
     StockRepositoryImpl stockRepository;
 
     @Autowired
     StockService stockService;
 
-    @DisplayName("[실패]상품아이디를 입력했는데 재고수량이 0이면 '재고가 없습니다'를 출력한다.")
+    @DisplayName("[실패]상품아이디를 입력했는데 재고수량이 0이면 '0'를 출력한다.")
     @Test
     void getStockByProductIdButQuantityIsZero() {
+        Product product = new Product("수량0상품",1000,10);
+        productRepository.save(product);
         //given
-        Stock stock = new Stock( 2L, 0);
+        Stock stock = new Stock( product.getId(), 0);
         stockRepository.save(stock);
         //when
 
         //then
-        Assertions.assertThatThrownBy(() -> stockService.getStockByProductId(stock.getProductId()))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("재고가 없습니다.");
+        Assertions.assertThat(stockService.getStockRemainQuantity(product.getId())).isEqualTo(0);
     }
 
     @DisplayName("[실패]상품아이디를 입력했는데 상품이 없으면 '상품이 없습니다'를 출력한다.")

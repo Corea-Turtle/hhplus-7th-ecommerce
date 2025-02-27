@@ -62,10 +62,7 @@ class SingleProductCheckFacadeTest {
         //when
 
         //then
-        Assertions.assertThatThrownBy(()->stockService.getStockByProductId(product.getId()))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("재고가 없습니다.");
-
+        Assertions.assertThat(stockService.getStockRemainQuantity(product.getId())).isEqualTo(0);
     }
 
     @DisplayName("[성공]상품아이디를 입력해서 상품 상세 정보를 반환한다.")

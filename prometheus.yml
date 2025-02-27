@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 10s
+  scrape_timeout: 10s
+  evaluation_interval: 2m
+
+  external_labels:
+    monitor: 'codelab-monitor'
+    query_log_file: query_log_file.log
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  - job_name: 'spring-boot-app'
+    metrics_path: '/swagger-ui/index.html'
+    static_configs:
+      - targets: ['localhost:8080']

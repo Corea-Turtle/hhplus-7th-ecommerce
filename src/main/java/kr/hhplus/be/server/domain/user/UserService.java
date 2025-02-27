@@ -43,7 +43,7 @@ public class UserService {
         return new UserUpdateBalanceResponse(resultBalance);
     }
 
-    //유저 포인트와 주문 상품 재고읭 포인트 비교
+    //유저 포인트와 주문 상품 재고의 포인트 비교
     public void updateUserBalanceGreaterThanOrEqualToTotalOrderPrice(User user, PurchaseOrder purchaseOrder){
         if(user.getBalance() >= purchaseOrder.getTotalPrice()){
             //To do

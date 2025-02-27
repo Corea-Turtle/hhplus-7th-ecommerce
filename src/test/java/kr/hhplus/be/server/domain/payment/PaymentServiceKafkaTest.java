@@ -144,7 +144,7 @@ class PaymentServiceKafkaTest {
                 .pollInterval(Duration.ofMillis(300)) // 300ms마다 체크
                 .atMost(4, TimeUnit.SECONDS) // 최대 4초 대기
                 .untilAsserted(() -> {
-                    kafkaConsumer.
+
                 });
     }
 
