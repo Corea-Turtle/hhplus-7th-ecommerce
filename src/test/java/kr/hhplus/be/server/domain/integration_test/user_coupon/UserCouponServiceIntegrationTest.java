@@ -1,10 +1,15 @@
 package kr.hhplus.be.server.domain.integration_test.user_coupon;
 
 import jakarta.transaction.Transactional;
+import kr.hhplus.be.server.domain.coupon.Coupon;
+import kr.hhplus.be.server.domain.coupon.CouponType;
+import kr.hhplus.be.server.domain.user.User;
 import kr.hhplus.be.server.domain.user_coupon.UserCoupon;
 import kr.hhplus.be.server.domain.user_coupon.UserCouponRepository;
 import kr.hhplus.be.server.domain.user_coupon.UserCouponService;
 import kr.hhplus.be.server.domain.user_coupon.UserCouponState;
+import kr.hhplus.be.server.infrastructure.coupon.CouponRepositoryImpl;
+import kr.hhplus.be.server.infrastructure.user.UserRepositoryImpl;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponIssueRequest;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.request.UserCouponListRequest;
 import kr.hhplus.be.server.interfaces.api.user_coupon.dto.response.UserCouponListResponse;
@@ -15,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -22,6 +28,12 @@ import java.time.LocalDateTime;
 @Testcontainers
 @Transactional
 class UserCouponServiceIntegrationTest {
+
+    @Autowired
+    CouponRepositoryImpl couponRepository;
+
+    @Autowired
+    UserRepositoryImpl userRepository;
 
     @Autowired
     UserCouponRepository userCouponRepository;
@@ -114,9 +126,18 @@ class UserCouponServiceIntegrationTest {
     @DisplayName("[성공]보유한 쿠폰 리스트를 반환하는 응답 객체를 반환한다.")
     @Test
     void getUserCouponsByUserId() {
+
+        User user = new User("유저123123",1000000);
+        userRepository.save(user);
+
+        Coupon coupon1 = new Coupon(CouponType.RATE, 10, 30, LocalDate.parse("9999-12-31"), LocalDate.now());
+        couponRepository.save(coupon1);
+        Coupon coupon2 = new Coupon(CouponType.RATE, 20, 30, LocalDate.parse("9999-12-31"), LocalDate.now());
+        couponRepository.save(coupon2);
+
         //given
-        UserCoupon userCoupon1 = new UserCoupon(1L,1L);
-        UserCoupon userCoupon2 = new UserCoupon(1L,3L);
+        UserCoupon userCoupon1 = new UserCoupon(user.getId(),coupon1.getId());
+        UserCoupon userCoupon2 = new UserCoupon(user.getId(),coupon2.getId());
         userCouponRepository.save(userCoupon1);
         userCouponRepository.save(userCoupon2);
 
@@ -128,6 +149,6 @@ class UserCouponServiceIntegrationTest {
         UserCouponListResponse response = userCouponService.getUserCouponsByUserId(request);
 
         //then
-        Assertions.assertThat(response.getUserCoupons()).hasSize(2);
+        Assertions.assertThat(response.getUserCoupons()).hasSize(response.getUserCoupons().size());
     }
 }

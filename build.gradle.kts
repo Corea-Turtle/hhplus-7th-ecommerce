@@ -35,6 +35,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
+	//logback
+	implementation("ch.qos.logback:logback-classic")
+
 	//kafka
 	implementation("org.apache.kafka:kafka_2.13:3.9.0") //카프카 기본
 	implementation("org.springframework.kafka:spring-kafka") //KafkaTemplate 용도

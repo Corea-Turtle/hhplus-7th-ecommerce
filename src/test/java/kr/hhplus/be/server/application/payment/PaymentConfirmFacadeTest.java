@@ -1,6 +1,8 @@
 package kr.hhplus.be.server.application.payment;
 
 import jakarta.transaction.Transactional;
+import kr.hhplus.be.server.domain.coupon.Coupon;
+import kr.hhplus.be.server.domain.coupon.CouponType;
 import kr.hhplus.be.server.domain.payment.PaymentRepository;
 import kr.hhplus.be.server.domain.payment.PaymentService;
 import kr.hhplus.be.server.domain.payment.PaymentVendor;
@@ -16,6 +18,7 @@ import kr.hhplus.be.server.domain.user.UserRepository;
 import kr.hhplus.be.server.domain.user.UserService;
 import kr.hhplus.be.server.domain.user_coupon.UserCoupon;
 import kr.hhplus.be.server.domain.user_coupon.UserCouponRepository;
+import kr.hhplus.be.server.infrastructure.coupon.CouponRepositoryImpl;
 import kr.hhplus.be.server.infrastructure.payment.PaymentRepositoryImpl;
 import kr.hhplus.be.server.infrastructure.product.ProductRepositoryImpl;
 import kr.hhplus.be.server.infrastructure.purchase_order.PurchaseOrderRepositoryImpl;
@@ -32,6 +35,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +46,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 class PaymentConfirmFacadeTest {
 
+
+    @Autowired
+    CouponRepositoryImpl couponRepository;
 
     @Autowired
     UserRepositoryImpl userRepository;
@@ -102,7 +109,7 @@ class PaymentConfirmFacadeTest {
     @Test
     void confirmPayment() {
         //given
-        User user = new User("잔액있는유저", 3000);
+        User user = new User("잔액있는유저", 300000);
         userRepository.save(user);
 
         //상품 추가
@@ -114,14 +121,17 @@ class PaymentConfirmFacadeTest {
         products.add(product1);
         products.add(product2);
 
+        Coupon coupon = new Coupon(CouponType.RATE,10,100, LocalDate.parse("9999-12-31"),LocalDate.now());
+        couponRepository.save(coupon);
+
         //쿠폰들 추가
-        UserCoupon userCoupon1 = new UserCoupon(1L, 1L);
+        UserCoupon userCoupon1 = new UserCoupon(user.getId(), coupon.getId());
         userCouponRepository.save(userCoupon1);
         List<UserCoupon> userUsedCoupons = new ArrayList<UserCoupon>();
         userUsedCoupons.add(userCoupon1);
 
         //주문 추가
-        PurchaseOrder purchaseOrder = new PurchaseOrder(user.getId(), products, userUsedCoupons, PurchaseOrderState.ORDER_PENDING, 2000);
+        PurchaseOrder purchaseOrder = new PurchaseOrder(user.getId(), products, userUsedCoupons, PurchaseOrderState.ORDER_PENDING, product1.getPrice()+ product2.getPrice());
         purchaseOrderRepository.save(purchaseOrder);
 
         PaymentConfirmRequest request = new PaymentConfirmRequest(user.getId(),purchaseOrder.getId(), PaymentVendor.TEST);

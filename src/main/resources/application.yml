@@ -11,8 +11,15 @@ spring:
       connection-timeout: 10000
       max-lifetime: 60000
     driver-class-name: com.mysql.cj.jdbc.Driver
+  #logback 설정
+  logging:
+    level:
+      root: INFO
+      kr.hhplus.be.server: DEBUG
+    file:
+      name: logs/app.log
   jpa:
-  #  defer-datasource-initialization: true #data.sql 설정
+    defer-datasource-initialization: true #data.sql 설정
     open-in-view: false
     generate-ddl: false
     show-sql: true
@@ -21,7 +28,7 @@ spring:
     properties:
       hibernate.timezone.default_storage: NORMALIZE_UTC
       hibernate.jdbc.time_zone: UTC
-  #sql.init.mode: always # data.sql 설정
+  sql.init.mode: always # data.sql 설정
   kafka:
     bootstrap-servers: "localhost:9092"
     producer:
@@ -33,8 +40,16 @@ spring:
       key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
       value-serializer: "org.springframework.kafka.support.serializer.ByteArrayDeserializer"
       properties.spring.json.trusted.packages: "com.testcontainers.demo"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
 ---
-spring.config.activate.on-profile: local, test
+spring.config.activate.on-profile: local, test, serene_jones
 
 spring:
   datasource:
